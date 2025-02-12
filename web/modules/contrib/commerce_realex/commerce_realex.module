@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Various hooks for the commerce_realex module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function commerce_realex_form_alter(
+  &$form,
+  FormStateInterface $form_state,
+  $form_id
+) {
+  // Display a warning to wait until the redirect from Global Payments back to
+  // the site is done.
+  if ($form_id === 'commerce_checkout_flow_multistep_default' && isset($form['payment_process']['offsite_payment'])) {
+    $form['payment_process']['offsite_payment']['realex_warning'] = [
+      '#markup' => t(
+        '<br>Please wait until the payment has fully completed after filling out your credit card credentials.<br>This way you can be sure your order will be correctly processed by us.'
+      ),
+    ];
+  }
+}

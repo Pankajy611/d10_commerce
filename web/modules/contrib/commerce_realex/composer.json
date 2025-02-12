@@ -1,0 +1,40 @@
+{
+    "name": "drupal/commerce_realex",
+    "description": "Commerce Realex / Global Payments.",
+    "type": "drupal-module",
+    "homepage": "https://www.drupal.org/project/commerce_realex",
+    "authors": [
+        {
+            "name": "Stella Power (stella)",
+            "homepage": "https://www.drupal.org/u/stella",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/commerce_realex",
+        "source": "https://git.drupalcode.org/project/commerce_realex"
+    },
+    "license": "GPL-2.0+",
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "annertech/rxp-js",
+                "version": "1.3.1.21",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/Annertech/rxp-js/archive/1.3.1.21.zip",
+                    "type": "zip"
+                },
+                "require": {
+                    "composer/installers": "~1.0"
+                }
+            }
+        }
+    ],
+    "require": {
+        "ext-json": "*",
+        "globalpayments/php-sdk": "^8",
+        "annertech/rxp-js": "1.3.1.21"
+    }
+}

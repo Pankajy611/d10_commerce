@@ -1,0 +1,12 @@
+name: Commerce Realex / Global Payments
+type: module
+description: Global Payments (formerly Realex) integration with Drupal Commerce
+core_version_requirement: ">=9"
+package: Commerce (contrib)
+dependencies:
+  - commerce:commerce_payment
+
+# Information added by Drupal.org packaging script on 2023-09-04
+version: '3.0.0'
+project: 'commerce_realex'
+datestamp: 1693861094

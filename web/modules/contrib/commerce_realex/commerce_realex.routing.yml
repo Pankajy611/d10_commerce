@@ -1,0 +1,45 @@
+commerce_realex.payment_form:
+  path: /commerce-realex-payment/payment/{payable_item_id}
+  defaults:
+    # @todo better title via callback, from tempstore payment object
+    _title: 'My Payment'
+    _form: 'Drupal\commerce_realex\Form\RealexPaymentForm'
+  requirements:
+    _permission: 'access content'
+
+commerce_realex.payment_request:
+  path: '/commerce-realex-payment/payment/realex-hpp-request/{payable_item_id}'
+  defaults:
+    _controller: 'Drupal\commerce_realex\Controller\RealexHppRequest::buildJson'
+  requirements:
+    _permission: 'access content'
+
+commerce_realex.payment_response:
+  path: '/commerce-realex-payment/payment/realex-hpp-response/{payable_item_id}'
+  defaults:
+    _controller: 'Drupal\commerce_realex\Controller\RealexHppResponse::processResponse'
+  requirements:
+    _permission: 'access content'
+
+commerce_realex.payment_failure:
+  path: '/commerce-realex-payment/payment/{payable_item_id}/failure'
+  defaults:
+    _title: 'Payment - Failed!'
+    _controller: 'Drupal\commerce_realex\Controller\PaymentFailure::displayFailure'
+  requirements:
+    _permission: 'access content'
+
+commerce_realex.payment_retry:
+  path: '/commerce-realex-payment/payment/{payable_item_id}/retry'
+  defaults:
+    _controller: 'Drupal\commerce_realex\Controller\PaymentFailure::retryPayment'
+  requirements:
+    _permission: 'access content'
+
+commerce_realex.link_invalid:
+  path: '/commerce-realex-payment/invalid'
+  defaults:
+    _controller: '\Drupal\commerce_realex\Controller\InvalidLinkController::invalidLink'
+    _title: 'Link invalid or expired'
+  requirements:
+    _permission: 'access content'

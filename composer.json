@@ -21,6 +21,7 @@
         "drupal/commerce": "^2.40",
         "drupal/commerce_authnet": "^1.11",
         "drupal/commerce_paypal": "^1.8",
+        "drupal/commerce_realex": "^3.0",
         "drupal/commerce_shipping": "^2.11",
         "drupal/commerce_stripe": "^1.2",
         "drupal/commerce_ups": "^4.0",

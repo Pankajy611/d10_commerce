@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef38e2d674e32fc9c8c130e77c4547cb",
+    "content-hash": "375f955aa781a2a3ef5cf5844e376cd7",
     "packages": [
         {
             "name": "annertech/rxp-js",
@@ -1947,6 +1947,72 @@
             }
         },
         {
+            "name": "drupal/commerce_realex",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/commerce_realex.git",
+                "reference": "3.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/commerce_realex-3.0.0.zip",
+                "reference": "3.0.0",
+                "shasum": "4f985e837c141dd96c6d916af4f37dd046c54243"
+            },
+            "require": {
+                "annertech/rxp-js": "1.3.1.21",
+                "drupal/commerce_payment": "*",
+                "drupal/core": ">=9",
+                "ext-json": "*",
+                "globalpayments/php-sdk": "^8"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.0.0",
+                    "datestamp": "1693861091",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Stella Power (stella)",
+                    "homepage": "https://www.drupal.org/u/stella",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "developers@globalpay.com",
+                    "homepage": "https://www.drupal.org/user/3616983"
+                },
+                {
+                    "name": "ikit-claw",
+                    "homepage": "https://www.drupal.org/user/3285813"
+                },
+                {
+                    "name": "jaims-dev",
+                    "homepage": "https://www.drupal.org/user/3589760"
+                },
+                {
+                    "name": "stella",
+                    "homepage": "https://www.drupal.org/user/66894"
+                }
+            ],
+            "description": "Commerce Realex / Global Payments.",
+            "homepage": "https://www.drupal.org/project/commerce_realex",
+            "support": {
+                "source": "https://git.drupalcode.org/project/commerce_realex",
+                "issues": "https://www.drupal.org/project/issues/commerce_realex"
+            }
+        },
+        {
             "name": "drupal/commerce_shipping",
             "version": "2.11.0",
             "source": {
@@ -3516,6 +3582,59 @@
                 "source": "https://github.com/GeNyaa/USPS-php-api/tree/2.0.3"
             },
             "time": "2023-04-18T17:18:03+00:00"
+        },
+        {
+            "name": "globalpayments/php-sdk",
+            "version": "8.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/globalpayments/php-sdk.git",
+                "reference": "9b0d4b4abccd9352faa7543fc2259e8b3c708145"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/globalpayments/php-sdk/zipball/9b0d4b4abccd9352faa7543fc2259e8b3c708145",
+                "reference": "9b0d4b4abccd9352faa7543fc2259e8b3c708145",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-dom": "*",
+                "ext-intl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-openssl": "*",
+                "ext-zlib": "*",
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "brianium/paratest": "4.0.0 || ^v6.6",
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ~9.4",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GlobalPayments\\Api\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Heartland Payment Systems"
+                }
+            ],
+            "description": "PHP SDK for processing payments with Global Payments, including Heartland Payment Systems and Realex Payments",
+            "homepage": "https://developer.heartlandpaymentsystems.com/documentation",
+            "support": {
+                "issues": "https://github.com/globalpayments/php-sdk/issues",
+                "source": "https://github.com/globalpayments/php-sdk/tree/8.0.2"
+            },
+            "time": "2023-06-27T12:07:16+00:00"
         },
         {
             "name": "grasmash/expander",
@@ -8324,10 +8443,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "RC",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": {},
-    "platform-dev": {},
+    "platform": [],
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

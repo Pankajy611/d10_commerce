@@ -1,0 +1,7 @@
+parameters:
+  # Expire any stored PayableItem after 30 minutes.
+  tempstore.expire: 1800
+services:
+  commerce_realex.payableitem:
+    class: Drupal\commerce_realex\payableitem
+    arguments: ['@tempstore.shared']
