@@ -1,0 +1,12 @@
+name: Commerce USPS
+type: module
+description: 'Provides USPS integration with Commerce Shipping.'
+core_version_requirement: ^9.3 || ^10
+package: Commerce (shipping)
+dependencies:
+  - commerce_shipping:commerce_shipping
+
+# Information added by Drupal.org packaging script on 2024-02-29
+version: '8.x-1.7'
+project: 'commerce_usps'
+datestamp: 1709200139

@@ -1,0 +1,9 @@
+# module/library/tool words
+ddev
+# Proper names
+Centarro
+Brevard
+Sainsburys
+Schlossgraben
+# #rd party words
+Courrier

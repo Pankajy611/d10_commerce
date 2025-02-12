@@ -1,0 +1,94 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a block.
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - provider: The module or other provider that provided this block plugin.
+ *   - Block plugin specific settings will also be stored here.
+ * - content: The content of this block.
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main content
+ *   tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * @see template_preprocess_block()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+    {{ title_prefix }}
+    {% if label %}
+        <h3 class="text-2xl text-brand-gold-light">{{ label }}</h3>
+    {% endif %}
+    {{ title_suffix }}
+    <ul class="mt-6 space-y-4">
+    {% if content.field_facebook_url %}				
+        <li>
+            <a class="flex items-center space-x-3 text-brand-gold-light hover:text-brand-gold focus:outline-none focus-visible:ring-2 ring-brand-gold" href="{{content.field_facebook_url.0}}" rel="noopener" aria-label="Tyndale Theological Seminary on Facebook" target="_blank">
+                <svg class="w-5 h-5 overflow-visible fill-current" alt="facebook" aria-hidden="true" viewBox="0 0 140 140"><path d="M105.817 41.825a2.917 2.917 0 00-2.159-.992H81.667v-8.225c0-1.633.35-3.5 2.975-3.5h17.5a2.567 2.567 0 002.041-.875A2.917 2.917 0 00105 26.25V2.917A2.917 2.917 0 00102.083 0H76.825c-28 0-30.158 23.917-30.158 31.208v9.625H32.083a2.917 2.917 0 00-2.916 2.917v23.333A2.917 2.917 0 0032.083 70h14.584v67.083A2.917 2.917 0 0049.583 140H78.75a2.917 2.917 0 002.917-2.917V70h19.541a2.917 2.917 0 002.917-2.625l2.45-23.333a2.917 2.917 0 00-.758-2.217z"></path></svg>
+                <span class="text-white hover:text-brand-gold">Facebook</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if content.field_instagram_url %}	
+        <li>
+            <a class="flex items-center space-x-3 text-brand-gold-light hover:text-brand-gold focus:outline-none focus-visible:ring-2 ring-brand-gold" href="{{content.field_instagram_url.0}}" rel="noopener" aria-label="Tyndale Theological Seminary on Instagram" target="_blank">
+                <svg class="w-5 h-5 overflow-visible fill-current" alt="instagram" aria-hidden="true" viewBox="0 0 140 140"><path d="M102.083 0H37.917A37.975 37.975 0 000 37.917v64.166A37.975 37.975 0 0037.917 140h64.166A37.975 37.975 0 00140 102.083V37.917A37.975 37.975 0 00102.083 0zM70 102.083A32.083 32.083 0 11102.083 70 32.083 32.083 0 0170 102.083zm37.917-64.166a8.75 8.75 0 118.75-8.75 8.75 8.75 0 01-8.75 8.75z"></path></svg>
+                <span class="text-white hover:text-brand-gold">Instagram</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if content.field_youtube_url %}	
+        <li>
+            <a class="flex items-center space-x-3 text-brand-gold-light hover:text-brand-gold focus:outline-none focus-visible:ring-2 ring-brand-gold" href="{{content.field_youtube_url.0}}" rel="noopener" aria-label="Tyndale Theological Seminary on Youtube" target="_blank">
+                <svg class="w-5 h-5 overflow-visible fill-current" alt="youtube" aria-hidden="true" viewBox="0 0 140 140"><path d="M115 15H25A25 25 0 000 40v60a25 25 0 0025 25h90a25 25 0 0025-25V40a25 25 0 00-25-25zM95.71 76.25L63.58 94.1A7.15 7.15 0 0153 87.85v-35.7a7.15 7.15 0 0110.6-6.26l32.11 17.86a7.15 7.15 0 010 12.5z"></path></svg>
+                <span class="text-white hover:text-brand-gold">Youtube</span>
+            </a>
+        </li>
+    {% endif %}
+    </ul>
+    {# {{content.field_links}} #}
+    {% if content.field_links %}
+        {% for key, item in content.field_links %}
+            {% set link_url = item['#url'] %}
+            {% if link_url %}
+                {% set link_title = item['#title'] %}
+                {% if loop.first or key == 0 %}
+                    <div class="mt-12">
+                        <a href="{{link_url}}" target="_blank" class="px-4 py-2 font-sans font-medium text-white bg-brand-gold">
+                            {{ link_title }}
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="mt-6">
+                        <a href="{{link_url}}" target="_blank" class="px-4 py-2 font-sans font-medium text-white bg-brand-gold">
+                            {{ link_title }}
+                        </a>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>

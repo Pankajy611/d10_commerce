@@ -1,0 +1,8 @@
+{
+    "require": {
+        "genyaa/usps-php-api": {
+            "version": "2.0.1",
+            "url": "https://github.com/genyaa/usps-php-api/archive/2.0.1.zip"
+        }
+    }
+}

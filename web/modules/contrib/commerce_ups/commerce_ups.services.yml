@@ -1,0 +1,24 @@
+services:
+  commerce_ups.logger:
+    class: Drupal\Core\Logger\LoggerChannel
+    factory: logger.factory:get
+    arguments: [ 'commerce_ups' ]
+
+  commerce_ups.ups_sdk:
+    class: Drupal\commerce_ups\UPSSdk
+    arguments: [ '@cache.ups', '@commerce_ups.logger' ]
+
+  commerce_ups.ups_sdk_factory:
+    class: Drupal\commerce_ups\UPSSdkFactory
+    arguments: [ '@http_client_factory', '@http_handler_stack', '@state', '@commerce_ups.ups_sdk' ]
+
+  commerce_ups.ups_rate_request:
+    class: Drupal\commerce_ups\UPSRateRequest
+    arguments: [ '@commerce_ups.ups_sdk_factory', '@commerce_price.rounder', '@commerce_ups.logger' ]
+
+  cache.ups:
+    class: Drupal\Core\Cache\CacheBackendInterface
+    tags:
+      - { name: cache.bin }
+    factory: cache_factory:get
+    arguments: [ ups ]

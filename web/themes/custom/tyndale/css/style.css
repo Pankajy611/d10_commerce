@@ -1,0 +1,45 @@
+/**
+ * @file
+ * Tyndale specific custom CSS.
+ */
+
+body {
+    font-family: inherit;
+}
+.node--type-page .node__content {
+    margin-top: 0;
+    font-size: inherit;
+ }
+ .block-inline-blockimage-with-cta picture img {
+    object-position: 50% 29%
+ }
+.menu--main ul.sub-menu {
+    z-index: 999;
+}
+.layout-builder-form #edit-actions,
+.layout-builder-form .form-type-vertical-tabs,
+.layout-builder-revert-overrides,
+.layout-builder-discard-changes {
+    margin: 0 auto;
+    width: 68%;
+}
+.layout-builder-form #edit-actions,
+.layout-builder-revert-overrides #edit-actions,
+.layout-builder-discard-changes #edit-actions{
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top:10px;
+}
+.layout-builder-form #edit-actions input[type="submit"],
+.layout-builder-revert-overrides #edit-actions input[type="submit"],
+.layout-builder-discard-changes #edit-actions input[type="submit"] {
+    flex: 1;
+    max-width: 200px;
+}
+@media (min-width: 768px) {
+    .md\:text-left {
+        text-align: left !important;
+    }
+}

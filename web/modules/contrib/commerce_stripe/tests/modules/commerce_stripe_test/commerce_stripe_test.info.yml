@@ -1,0 +1,11 @@
+name: Commerce Stripe Test
+type: module
+description: Testing module for Commerce Stripe
+package: Testing
+dependencies:
+  - commerce_stripe:commerce_stripe
+
+# Information added by Drupal.org packaging script on 2024-11-03
+version: '8.x-1.2'
+project: 'commerce_stripe'
+datestamp: 1730599235

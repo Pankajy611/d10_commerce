@@ -1,0 +1,135 @@
+{% import _self as menus %}
+
+  {#
+    We call a macro which calls itself to render the full tree.
+    @see http://twig.sensiolabs.org/doc/tags/macro.html
+  #}
+
+{{ menus.menu_links(items, attributes, 0, 'desktop') }}
+{{ menus.menu_links(items, attributes, 0, 'mobile') }}
+
+{% macro menu_links(items, attributes, menu_level, device_type) %}
+  {% if menu_level == 0 %}
+    {% if device_type == 'desktop' %}
+      <nav class="z-40 hidden py-12 lg:block" aria-label="Main navigation">
+    {% elseif device_type == 'mobile' %}
+      <nav x-data="{ mobileNavOpen: false }" class="lg:hidden" aria-label="Main navigation" x-trap.inert.noscroll="mobileNavOpen" @keyup.escape.stop.prevent="mobileNavOpen = false" x-cloak>
+        <button  @click.prevent.stop="mobileNavOpen = !mobileNavOpen" class="fixed top-8 right-0 z-[100] flex items-center justify-center w-12 h-12 mr-8 text-xs font-bold text-white mb-safe rounded bg-brand-gold focus:outline-none focus-visible:ring-2 ring-primary ring-offset-2" :aria-label="mobileNavOpen? 'Close navigation' : 'Open navigation'" :aria-expanded="mobileNavOpen">
+          <span x-show="mobileNavOpen">
+              <svg class="w-6 stroke-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/>
+              </svg>
+          </span>
+          <span x-show="!mobileNavOpen">
+              <svg class="w-6 stroke-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 160h352M80 256h352M80 352h352"/>
+              </svg>
+          </span>
+        </button>
+        <div class="fixed inset-0 z-50 flex flex-col justify-end px-8 pt-8 pb-12 bg-white" x-show="mobileNavOpen">
+    {% endif %}
+  {% endif %}
+    {% import _self as menus %}
+    {% if items %}
+      {% if device_type == 'desktop' %}
+        {% if menu_level == 0 %}
+          <ul class="flex items-center space-x-8 font-serif">
+        {% else %}
+          <ul x-show="subnavOpen" x-ref="subnav" class="absolute right-0 px-3 py-2 mt-2 -ml-3 bg-white border rounded shadow border-brand-blue/10 sub-menu" @click.outside="subnavOpen = false" x-transition x-cloak>
+        {% endif %}
+      {% elseif device_type == 'mobile' %}
+        {% if menu_level == 0 %}
+          <ul class="flex flex-col py-2 space-y-4 overflow-auto font-serif">
+        {% else %}
+          <ul x-show="subnavOpen" x-ref="subnav" class="flex flex-col items-stretch pl-4 space-y-2 sub-menu" x-collapse>
+        {% endif %}
+      {% endif %}
+
+      {% for item in items %}
+        {% if device_type == 'desktop' %}
+          {% if item.is_expanded %}
+            <li x-data="{ subnavOpen: false }" @keyup.escape.stop.prevent="subnavOpen = false" @focusin.window="!$refs.subnav.contains($event.target) && (subnavOpen = false)" class="relative leading-none">
+              <a class="p-1 -m-1 flex items-center text-md hover:text-brand-gold focus:outline-none focus-visible:ring-2 ring-brand-gold text-brand-blue font-normal" href="{{item.url}}" @click.prevent="subnavOpen = !subnavOpen" aria-label="{{item.title}} subnav" :aria-expanded="subnavOpen">{{item.title}}
+                <div :class="{ 'scale-y-[-1]': subnavOpen }" class="motion-safe:transition-transform"><svg class="w-2 ml-1 overflow-visible stroke-current text-brand-blue" aria-hidden="true" stroke-width="24" viewBox="0 0 140 140"><path d="M135.625 42.648l-62.533 62.527a4.37 4.37 0 01-6.184 0L4.375 42.648" fill="none"></path></svg></div>
+              </a>
+          {% else %}
+            {% if menu_level == 0 %}
+              <li class="relative leading-none">
+                <a class="p-1 -m-1 flex items-center text-md hover:text-brand-gold focus:outline-none focus-visible:ring-2 ring-brand-gold
+                text-brand-blue font-normal" href="{{item.url}}">{{item.title}}</a>
+            {% else %}
+              <li class="">
+                <a class="whitespace-nowrap py-3 px-3 -mx-1 block text-md hover:text-brand-gold focus:outline-none focus-visible:ring-2 ring-primary text-brand-blue font-normal" href="{{item.url}}">{{item.title}}</a>
+            {% endif %}
+          {% endif %}
+          {% if item.below %}
+            {{ menus.menu_links(item.below, attributes, menu_level + 1, device_type) }}
+          {% endif %}
+          </li>
+          {% if loop.last and menu_level == 0 %}
+            {# Search Form #}
+            <li x-data="{ open: false, value: '' }" @keydown.window.prevent.slash.="open = true, setTimeout(() => {$refs.input.focus()}, 200)" @keydown.window.prevent.esc="open = false" @click.outside="open = false" @focusin.window="!$root.contains($event.target) && (open = false)" class="relative flex py-2" x-cloak>
+
+              <button @click="open = !open, setTimeout(() => {$refs.input.focus()}, 200)" class="text-brand-blue hover:text-primary" :aria-label="open ? 'Close search' : 'Open search'" :aria-expanded="open">
+                  <svg class="w-5 h-5 fill-current motion-safe:transition-colors" alt="" aria-hidden="true" viewBox="0 0 39 40">
+                    <path d="M23.517 0c3.962 0 7.926 1.506 10.948 4.517 6.047 6.024 6.047 15.788 0 21.811a15.466 15.466 0 01-10.948 4.517c-3.214 0-6.428-.993-9.142-2.976L3.515 38.731a2 2 0 01-2.769.057 1.515 1.515 0 01-.571-2.013c.09-.32.26-.622.511-.873L11.48 25.11l-.09-.11c-4.83-6.054-4.44-14.883 1.18-20.482A15.467 15.467 0 0123.517 0zM23.5 4C17.149 4 12 9.149 12 15.5S17.149 27 23.5 27 35 21.851 35 15.5 29.851 4 23.5 4z"/>
+                  </svg>
+              </button>
+      
+              <form action="/search/node" x-show="open" x-transition.origin.right.duration.200ms class="absolute inset-y-0 right-0 flex -mr-2"role="search">
+                  <input x-ref="input" class="h-full pr-10 font-sans text-sm font-light rounded w-52 border-brand-gold focus-visible:border-primary focus-visible:ring focus-visible:ring-primary motion-safe:transition" placeholder="Search" type="search" x-model="value" value="" name="keys"/>
+                  <button class="absolute inset-y-0 right-0 flex items-center mr-2 text-brand-gold hover:text-primary" aria-label="Search" :disabled="value.length === 0"
+                    :class="{ 'opacity-25 cursor-default': value.length === 0, 'opacity-100': value.length > 0 }">
+                    <svg class="w-5 h-5 fill-brand-gold text-brand-gold motion-safe:transition-colors" alt="" aria-hidden="true" viewBox="0 0 39 40">
+                        <path d="M23.517 0c3.962 0 7.926 1.506 10.948 4.517 6.047 6.024 6.047 15.788 0 21.811a15.466 15.466 0 01-10.948 4.517c-3.214 0-6.428-.993-9.142-2.976L3.515 38.731a2 2 0 01-2.769.057 1.515 1.515 0 01-.571-2.013c.09-.32.26-.622.511-.873L11.48 25.11l-.09-.11c-4.83-6.054-4.44-14.883 1.18-20.482A15.467 15.467 0 0123.517 0zM23.5 4C17.149 4 12 9.149 12 15.5S17.149 27 23.5 27 35 21.851 35 15.5 29.851 4 23.5 4z"/>
+                    </svg>
+                  </button>
+              </form>
+            </li>
+          {% endif %}
+        {% elseif device_type == 'mobile' %}
+          {% if item.is_expanded %}
+            <li x-data="{ subnavOpen: false }" @focusin.window="!$refs.subnav.contains($event.target) && (subnavOpen = false)" class="leading-none">
+              <a class="w-full py-2 flex items-center space-x-1 text-2xl hover:text-brand-blue text-brand-blue font-normal focus:outline-none focus-visible:ring-2 ring-primary"
+                href="{{item.url}}"  @click.prevent="subnavOpen = !subnavOpen" :aria-label="subnavOpen  ? 'Close sub navigation' : 'Open sub navigation'" :aria-expanded="subnavOpen">
+                <span>{{item.title}}</span>
+                <div :class="{ 'scale-y-[-1]': subnavOpen }" class="motion-safe:transition-transform">
+                  <svg class="w-2 ml-1 overflow-visible stroke-current text-brand-blue" aria-hidden="true" stroke-width="24" viewBox="0 0 140 140"><path d="M135.625 42.648l-62.533 62.527a4.37 4.37 0 01-6.184 0L4.375 42.648" fill="none"/></svg>
+                </div>
+              </a>
+          {% else %}
+            {% if menu_level == 0 %}
+              <li class="leading-none">
+                <a class="w-full py-2 flex items-center space-x-1 text-2xl hover:text-brand-blue text-brand-blue font-normal focus:outline-none focus-visible:ring-2 ring-primary"  href="{{item.url}}">{{item.title}}</a>
+            {% else %}
+              <li class="mt-2">
+                <a class="block py-2 whitespace-nowrap hover:text-brand-blue text-xl text-brand-blue font-normal focus:outline-none focus-visible:ring-2 ring-primary" href="{{item.url}}">{{item.title}}</a>
+            {% endif %}
+          {% endif %}
+          {% if item.below %}
+            {{ menus.menu_links(item.below, attributes, menu_level + 1, device_type) }}
+          {% endif %}
+          </li>
+          {% if loop.last and menu_level == 0 %}
+            {# Search button #}
+            <li class="leading-none">
+              <a href="/search" class="w-full py-2 flex items-center space-x-1 text-2xl hover:text-brand-blue text-brand-blue font-normal focus:outline-none focus-visible:ring-2 ring-primary"> Search
+              </a>
+            </li>
+          {% endif %}
+        {% endif %} 
+      {% endfor %}
+      {% if device_type == 'desktop' or device_type == 'mobile' %}
+        </ul>
+      {% endif %}
+    {% endif %}
+
+  {% if menu_level == 0 %}
+    {% if device_type == 'desktop' %}
+      </nav>
+    {% elseif device_type == 'mobile' %}
+        </div>
+      </nav>
+    {% endif %}
+  {% endif %}
+{% endmacro %}

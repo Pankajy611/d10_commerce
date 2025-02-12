@@ -1,0 +1,16 @@
+{
+    "name": "drupal/commerce_stripe",
+    "type": "drupal-module",
+    "description": "Provides Commerce integration for Stripe Payments.",
+    "homepage": "https://drupal.org/project/commerce_stripe",
+    "require": {
+        "php": ">=8.1.6",
+        "drupal/commerce": "^2.40 || ^3",
+        "stripe/stripe-php": "^7.25 || ^15",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "drupal/advancedqueue": "^1.0",
+        "drush/drush": "^11.0 || ^12.0 || ^13.0"
+    }
+}

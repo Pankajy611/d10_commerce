@@ -1,0 +1,18 @@
+{
+  "name": "drupal/commerce_ups",
+  "type": "drupal-module",
+  "description": "UPS Shipping Module for Drupal 8",
+  "keywords": ["Drupal"],
+    "license": "GPL-2.0-or-later",
+  "homepage": "https://www.drupal.org/project/commerce_ups",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/commerce_ups",
+    "source": "https://cgit.drupalcode.org/commerce_ups"
+  },
+  "require": {
+    "php": "^8.0",
+    "drupal/commerce_shipping": "^2.0",
+    "sainsburys/guzzle-oauth2-plugin": "^3.0"
+  }
+}
